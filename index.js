@@ -51,22 +51,11 @@ function fetchAndDisplayBoardsAndTasks() {
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
   if (boards.length > 0) {
-    let localStorageBoard;
-    try {
-      localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"));
-    } catch (e) {
-      console.error("Error parsing activeBoard from localStorage:", e);
-    }
-    activeBoard = localStorageBoard || boards[0];
-    if (elements.headerBoardName) {
-      elements.headerBoardName.textContent = activeBoard;
-    } else {
-      console.warn("Header board name element not found.");
-    }
-    styleActiveBoard(activeBoard);
+    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
+    activeBoard = localStorage.getItem("activeBoard") || boards[0];
+    elements.headerBoardName.textContent = activeBoard
+    styleActiveBoard(activeBoard)
     refreshTasksUI();
-  } else {
-    console.warn("No boards found.");
   }
 }
 
