@@ -26,9 +26,6 @@ const elements = {
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
   themeSwitch: document.getElementById('switch'),
-  deleteTaskBtn: document.getElementById('delete-task-btn'),
-  saveTaskChangesBtn: document.getElementById('save-task-changes-btn'),
-
 }
 
 let activeBoard = ""
