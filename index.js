@@ -280,10 +280,13 @@ function saveTaskChanges(taskId) {
     title: document.getElementById('edit-task-title-input').value,
     description: document.getElementById('edit-task-description-input').value,
     status:  document.getElementById('edit-select-status').value,
-  }
+  };
 
   // Create an object with the updated task details
-
+  if (!newTasks.title || !newTasks.description) {
+    alert('Please complete all fields.');
+    return;
+  }
 
   // Update task using a hlper functoin
   patchTask(taskId, newTasks);

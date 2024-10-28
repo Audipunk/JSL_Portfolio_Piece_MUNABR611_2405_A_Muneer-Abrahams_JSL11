@@ -48,3 +48,8 @@ export const deleteTask = (id) => {
   // Previously: location.reload(); Now: We'll refresh the UI instead.
   return updatedTasks; // Optionally return the updated tasks list for further processing
 };
+<div class="edit-task-div button-group">
+                <button type="button" class="editBtns" id="save-task-changes-btn">Save Changes</button>
+                <button type="button" class="editBtns" id="cancel-edit-btn">Cancel</button>
+                <button type="button" class="editBtns" id="delete-task-btn">Delete Task</button>
+            </div>
