@@ -424,7 +424,6 @@ header {
 }
 
 #edit-board-btn {
-  display: none;
   top: 30px;
   right: 20px;
 }
@@ -841,7 +840,7 @@ input:checked + #label-checkbox-theme:after {
   }
 
   .dropdownBtn {
-    display: none;
+    display: block;
     background-color: transparent;
     border: none;
     margin-left: 10px;
@@ -849,8 +848,8 @@ input:checked + #label-checkbox-theme:after {
   }
 
   .logo-mobile {
-   /* display: block;
-   margin-right: 10px;*/
+    display: block;
+    margin-right: 10px;
   }
 
   body {
@@ -971,7 +970,7 @@ input:checked + #label-checkbox-theme:after {
 
   #edit-board-btn {
     top: 17px;
-    display: none;
+    display: flex;
     right: 10px;
     padding: 0;
   }
@@ -1073,7 +1072,7 @@ input:checked + #label-checkbox-theme:after {
   }
 
   .dropdownBtn {
-    display: none;
+    display: block;
     background-color: transparent;
     border: none;
     margin-left: 10px;
@@ -1081,8 +1080,8 @@ input:checked + #label-checkbox-theme:after {
   }
 
   .logo-mobile {
-    /*display: block;
-    margin-right: 10px;*/
+    display: block;
+    margin-right: 10px;
   }
 
   body {
@@ -1221,6 +1220,7 @@ input:checked + #label-checkbox-theme:after {
 
   #edit-board-btn {
     top: 17px;
+    display: flex;
     right: 10px;
     /* border: 2px solid red; */
     padding: 0;
