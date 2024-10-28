@@ -1,6 +1,5 @@
-// TASK: import helper functions from utils
-// TASK: import initialData
-
+import { getTasks, createNewTask, patchTask, putTask, deleteTask } from './utils/taskFunctions.js'
+import {initialData} from './initialData.js'
 
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
@@ -18,6 +17,17 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
+  headerBoardName: document.getElementById('header-board-name'),
+  columnDivs: document.querySelectorAll('.column-div'),
+  filterDiv: document.getElementById('filterDiv'),
+  createNewTaskBtn: document.getElementById('add-new-task-btn'),
+  modalWindow: document.getElementById('new-task-modal-window'),
+  editTaskModal: document.getElementById('edit-task-modal-window'),
+  hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
+  showSideBarBtn: document.getElementById('show-side-bar-btn'),
+  themeSwitch: document.getElementById('switch'),
+  deleteTaskBtn: document.getElementById('delete-task-btn'),
+  saveTaskChangesBtn: document.getElementById('save-task-changes-btn'),
 
 }
 
