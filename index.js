@@ -278,8 +278,7 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  const updatedTasks = {
-    id: taskId, 
+  const newTasks = { 
     title: document.getElementById('edit-task-title-input').value,
     description: document.getElementById('edit-task-description-input').value,
     status:  document.getElementById('edit-select-status').value,
@@ -289,7 +288,7 @@ function saveTaskChanges(taskId) {
 
 
   // Update task using a hlper functoin
-  patchTask(taskId, updatedTasks);
+  patchTask(taskId, newTasks);
 
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal);
