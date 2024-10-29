@@ -1300,6 +1300,27 @@ input:checked + #label-checkbox-theme:after {
     width: 95%;
   }
 }
+.button-group {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.editBtns {
+  padding: 10px 15px; /* Button padding */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background change */
+}
+
+.editBtns:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+}
+
+.editBtns:active {
+  background-color: #d0d0d0; /* Darker gray on active */
+}
+
 
 /* Tablets */
 @media screen and (min-width: 481px) and (max-width: 1024px) {
