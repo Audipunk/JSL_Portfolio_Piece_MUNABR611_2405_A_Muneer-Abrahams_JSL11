@@ -52,7 +52,7 @@ function fetchAndDisplayBoardsAndTasks() {
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorage.getItem("activeBoard") || boards[0];
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0] || "defaultBoardName";
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
@@ -278,7 +278,7 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  const Tasks = {
+  const updatedTasks = {
     id: taskId, 
     title: document.getElementById('edit-task-title-input').value,
     description: document.getElementById('edit-task-description-input').value,
@@ -289,7 +289,7 @@ function saveTaskChanges(taskId) {
 
 
   // Update task using a hlper functoin
-  patchTask(taskId, newTasks);
+  patchTask(taskId, updatedTasks);
 
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal);
@@ -302,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
   init(); // init is called after the DOM is fully loaded
 });
 
+/*************  ✨ Codeium Command 🌟  *************/
 /**
  * Initializes the application by setting up event listeners, 
  * configuring the UI based on saved user preferences, 
@@ -310,6 +311,22 @@ document.addEventListener('DOMContentLoaded', function() {
  * and applies them accordingly.
  */
 function init() {
+  try {
+    setupEventListeners();
+    const showSidebar = localStorage.getItem('showSideBar') === 'true';
+    if (typeof showSidebar !== 'boolean') {
+      throw new Error('showSidebar value in localStorage is incorrect');
+    }
+    toggleSidebar(showSidebar);
+    const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+    if (typeof isLightTheme !== 'boolean') {
+      throw new Error('light-theme value in localStorage is incorrect');
+    }
+    document.body.classList.toggle('light-theme', isLightTheme);
+    fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
+  } catch (error) {
+    console.error(error.message);
+  }
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
@@ -317,3 +334,4 @@ function init() {
   document.body.classList.toggle('light-theme', isLightTheme);
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
+/******  52eff245-14fb-4b06-98c5-c986ffa9e7bb  *******/
