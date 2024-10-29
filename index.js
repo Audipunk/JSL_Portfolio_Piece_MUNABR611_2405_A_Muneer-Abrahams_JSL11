@@ -23,7 +23,6 @@ const elements = {
   createNewTaskBtn: document.getElementById('add-new-task-btn'),
   modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.getElementById('edit-task-modal-window'),
-  filterDiv: document.getElementById('filterDiv'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
   themeSwitch: document.getElementById('switch'),
@@ -31,18 +30,10 @@ const elements = {
   filterInput: document.getElementById('filter-input'),
   boardsNavLinksDiv: document.getElementById('boards-nav-links-div'),
   filterClearBtn: document.getElementById('filter-clear-btn'),
-  createNewTaskForm: document.getElementById('new-task-form'),
-  titleInput: document.getElementById('title-input'),
-  descInput: document.getElementById('desc-input'),
-  selectStatus: document.getElementById('select-status'),
-  saveTaskChangesBtn: document.getElementById('save-task-changes-btn'),
-  deleteTaskBtn: document.getElementById('delete-task-btn'),
-  cancelEditBtn: document.getElementById('cancel-edit-btn'),
-  cancelAddTaskBtn: document.getElementById('cancel-add-task-btn')
-};
+  
+}
 
-
-let activeBoard = "";
+let activeBoard = ""
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
@@ -52,7 +43,7 @@ function fetchAndDisplayBoardsAndTasks() {
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorage.getItem("activeBoard") || boards[0];
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0] || "defaultBoardName";
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
@@ -258,7 +249,7 @@ function openEditTaskModal(task) {
 
   // Get button elements from the task modal
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  const deleteTaskBtn = document.getElementById('delete-task-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn')
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.onclick = () => saveTaskChanges(task.id);
@@ -302,13 +293,6 @@ document.addEventListener('DOMContentLoaded', function() {
   init(); // init is called after the DOM is fully loaded
 });
 
-/**
- * Initializes the application by setting up event listeners, 
- * configuring the UI based on saved user preferences, 
- * and displaying the boards and tasks from storage.
- * It checks localStorage for sidebar visibility and theme preferences 
- * and applies them accordingly.
- */
 function init() {
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
