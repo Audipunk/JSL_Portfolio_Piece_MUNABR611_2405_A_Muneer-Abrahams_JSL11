@@ -42,7 +42,7 @@ const elements = {
 };
 
 
-let activeBoard = "";
+let activeBoard = ""
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
@@ -258,7 +258,7 @@ function openEditTaskModal(task) {
 
   // Get button elements from the task modal
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  const deleteTaskBtn = document.getElementById('delete-task-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn')
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.onclick = () => saveTaskChanges(task.id);
@@ -302,31 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
   init(); // init is called after the DOM is fully loaded
 });
 
-/*************  ✨ Codeium Command 🌟  *************/
-/**
- * Initializes the application by setting up event listeners, 
- * configuring the UI based on saved user preferences, 
- * and displaying the boards and tasks from storage.
- * It checks localStorage for sidebar visibility and theme preferences 
- * and applies them accordingly.
- */
 function init() {
-  try {
-    setupEventListeners();
-    const showSidebar = localStorage.getItem('showSideBar') === 'true';
-    if (typeof showSidebar !== 'boolean') {
-      throw new Error('showSidebar value in localStorage is incorrect');
-    }
-    toggleSidebar(showSidebar);
-    const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
-    if (typeof isLightTheme !== 'boolean') {
-      throw new Error('light-theme value in localStorage is incorrect');
-    }
-    document.body.classList.toggle('light-theme', isLightTheme);
-    fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
-  } catch (error) {
-    console.error(error.message);
-  }
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
@@ -334,4 +310,3 @@ function init() {
   document.body.classList.toggle('light-theme', isLightTheme);
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
-/******  52eff245-14fb-4b06-98c5-c986ffa9e7bb  *******/
