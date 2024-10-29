@@ -80,13 +80,7 @@ function filterAndDisplayTasksByBoard(boardName) {
 
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
-  elements.columnDivs.forEach(column => {
-    const status = column.getAttribute("data-status");
-    // Reset column content while preserving the column title
-    column.innerHTML = `<div class="column-head-div">
-                          <span class="dot" id="${status}-dot"></span>
-                          <h4 class="columnHeader">${status.toUpperCase()}</h4>
-                        </div>`;//alligned columns
+ //alligned columns
 
     const tasksContainer = document.createElement("div");
     tasksContainer.className = 'tasks-container'; // added the classname property to class container
@@ -105,8 +99,8 @@ function filterAndDisplayTasksByBoard(boardName) {
 
       tasksContainer.appendChild(taskElement);
     });
-  });
-}
+  };
+
 
 
 function refreshTasksUI() {
