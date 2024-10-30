@@ -1,6 +1,91 @@
 import { getTasks, createNewTask, patchTask, putTask, deleteTask } from './utils/taskFunctions.js'
 import {initialData} from './initialData.js'
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/taskAction")
+public class TaskActionServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        // Get parameters from the form
+        String taskTitle = request.getParameter("taskTitle");
+        String taskDescription = request.getParameter("taskDescription");
+        String taskStatus = request.getParameter("status");
+        String action = request.getParameter("action");
+
+        // Determine action based on the button clicked
+        switch (action) {
+            case "save":
+                // Logic to save the task
+                saveTask(taskTitle, taskDescription, taskStatus);
+                response.getWriter().write("Task saved successfully!");
+                break;
+                
+            case "delete":
+                // Logic to delete the task
+                deleteTask(taskTitle);
+                response.getWriter().write("Task deleted successfully!");
+                break;
+                
+            case "cancel":
+                // Logic to handle cancellation
+                response.getWriter().write("Task edit canceled.");
+                break;
+                
+            default:
+                response.getWriter().write("Invalid action.");
+                break;
+        }
+    }
+  
+    private void saveTask(String title, String description, String status) {
+        // Logic to save the task (e.g., database update or service call)
+    }
+
+    private void deleteTask(String title) {
+        // Logic to delete the task (e.g., database deletion or service call)
+    }
+}
+document.getElementById("save-task-changes-btn").addEventListener("click", () => submitForm("save"));
+document.getElementById("cancel-edit-btn").addEventListener("click", () => submitForm("cancel"));
+document.getElementById("delete-task-btn").addEventListener("click", () => submitForm("delete"));
+
+async function submitForm(action) {
+    const taskTitle = document.getElementById("edit-task-title-input").value;
+    const taskDescription = document.getElementById("edit-task-desc-input").value;
+    const taskStatus = document.getElementById("edit-select-status").value;
+
+    try {
+        const response = await fetch("/taskAction", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                taskTitle: taskTitle,
+                taskDescription: taskDescription,
+                status: taskStatus,
+                action: action
+            })
+        });
+
+        const resultText = await response.text();
+        alert(resultText);
+    } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("An error occurred while processing your request.");
+    }
+}
+
+
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
@@ -83,7 +168,10 @@ function filterAndDisplayTasksByBoard(boardName) {
                           <span class="dot" id="${status}-dot"></span>
                           <h4 class="columnHeader">${status.toUpperCase()}</h4>
                         </div>`;
-
+  });
+                        });
+  
+  
     const tasksContainer = document.createElement("div");
     column.appendChild(tasksContainer);
 
@@ -96,12 +184,15 @@ function filterAndDisplayTasksByBoard(boardName) {
       // Listen for a click event on each task and open a modal
       taskElement.onclick = () => { 
         openEditTaskModal(task);
-      };
-
-      tasksContainer.appendChild(taskElement);
-    });
+  };
   });
-}
+};
+      tasksContainer.appendChild(taskElement);
+};   
+});
+)}
+
+
 
 
 function refreshTasksUI() {
