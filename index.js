@@ -31,59 +31,43 @@ const elements = {
 
 }
 
-let activeBoard = "";
+let activeBoard = ""
 
-// Fetch tasks and display unique boards and tasks
+// Extracts unique board names from tasks
+// TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
-  const tasks = getTasks() || []; // Safeguard if getTasks returns undefined
+  const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
-
   if (boards.length > 0) {
-    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"));
-    activeBoard = localStorageBoard && boards.includes(localStorageBoard) 
-      ? localStorageBoard 
-      : boards[0] || "defaultBoardName";
-
-    elements.headerBoardName.textContent = activeBoard;
-    styleActiveBoard(activeBoard);
+    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0] || "defaultBoardName";
+    elements.headerBoardName.textContent = activeBoard
+    styleActiveBoard(activeBoard)
     refreshTasksUI();
   }
 }
 
-// Display boards in the navigation bar
+// Creates different boards in the DOM
+// TASK: Fix Bugs
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
-  boardsContainer.innerHTML = ''; // Clear any previous board buttons
-
+  boardsContainer.innerHTML = ''; // Clears the container
   boards.forEach(board => {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
-
-    boardElement.onclick = () => {
+    boardElement.onclick = () =>  { 
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
-      activeBoard = board; // Set active board
-      localStorage.setItem("activeBoard", JSON.stringify(activeBoard));
-      styleActiveBoard(activeBoard);
+      activeBoard = board //assigns active board
+      localStorage.setItem("activeBoard", JSON.stringify(activeBoard))
+      styleActiveBoard(activeBoard)
     };
-
     boardsContainer.appendChild(boardElement);
   });
 
-  // Reapply styles to the active board after rendering
-  styleActiveBoard(activeBoard);
 }
-
-// Styling for active board button
-function styleActiveBoard(boardName) {
-  const boardButtons = document.querySelectorAll(".board-btn");
-  boardButtons.forEach(button => {
-    button.classList.toggle("active", button.textContent === boardName);
-  });
-}
-
 
 // Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
