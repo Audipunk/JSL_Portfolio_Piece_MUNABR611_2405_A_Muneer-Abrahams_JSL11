@@ -732,6 +732,8 @@ input {
   border-radius: 10px;
   margin-left: 50px;
   margin-right: 30px;
+  margin-top: 650px;
+
 }
 
 #icon-light {
@@ -1300,27 +1302,6 @@ input:checked + #label-checkbox-theme:after {
     width: 95%;
   }
 }
-.button-group {
-  display: flex;
-  gap: 10px; /* Space between buttons */
-}
-
-.editBtns {
-  padding: 10px 15px; /* Button padding */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth background change */
-}
-
-.editBtns:hover {
-  background-color: #f0f0f0; /* Light gray on hover */
-}
-
-.editBtns:active {
-  background-color: #d0d0d0; /* Darker gray on active */
-}
-
 
 /* Tablets */
 @media screen and (min-width: 481px) and (max-width: 1024px) {
@@ -1442,4 +1423,67 @@ input:checked + #label-checkbox-theme:after {
   .modal-window {
     width: 30%;
   }
+}
+/* Style for board items */
+/* Style for Add Board button */
+#add-board-btn {
+  background-color: rgb(31, 160, 152);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded edges */
+  margin-top: 10px;
+  width: calc(100% - 20px); /* Full width with some padding */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+#add-board-btn:hover {
+  background-color: rgb(6, 74, 77);
+}
+
+/* Style for Add Board input */
+#add-board-input {
+  color: black;
+  border-radius: 5px; /* Rounded edges */
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  width: calc(100% - 20px); /* Adjust the width to fit within its container */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+#add-board-input:focus {
+  outline: none;
+  border-color: rgb(27, 109, 169); 
+}
+
+/* Additional styles for the sidebar */
+#side-bar-div {
+  padding: 10px;
+}
+
+.board-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.board-btn {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.delete-board-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded edges */
+}
+
+.delete-board-btn:hover {
+  background-color: darkred;
 }
