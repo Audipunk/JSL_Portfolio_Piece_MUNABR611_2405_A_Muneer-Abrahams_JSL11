@@ -732,7 +732,7 @@ input {
   border-radius: 10px;
   margin-left: 50px;
   margin-right: 30px;
-  margin-top: 650px;
+  margin-top: 340px;
 
 }
 
@@ -1005,7 +1005,6 @@ input:checked + #label-checkbox-theme:after {
 .header-board-name {
   font-family: 'IBM Plex Sans', sans-serif;
 }
-
 
   #deleteBoardBtn {
     font-size: 12px;
