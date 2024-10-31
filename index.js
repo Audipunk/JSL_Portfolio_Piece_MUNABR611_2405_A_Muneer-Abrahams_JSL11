@@ -1,4 +1,3 @@
-// Function to initialize data in localStorage if it's not already present
 function initializeData() {
   if (!localStorage.getItem('tasks')) {
     localStorage.setItem('tasks', JSON.stringify(initialData));
@@ -7,7 +6,6 @@ function initializeData() {
     console.log('Data already exists in localStorage');
   }
 }
-
 // DOM elements
 const elements = {
   headerBoardName: document.getElementById('header-board-name'),
@@ -32,10 +30,8 @@ const elements = {
   addBoardInput: document.getElementById('add-board-input'),
   addBoardBtn: document.getElementById('add-board-btn')
 };
-
 let activeBoard = '';
 let selectedTaskId = '';
-
 // Fetches tasks from localStorage or an initial data source
 function getTasks() {
   return JSON.parse(localStorage.getItem('tasks')) || [];
@@ -46,7 +42,6 @@ function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
-
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem('activeBoard'));
     activeBoard = localStorageBoard || boards[0]; // Set activeBoard to the first board by default
@@ -59,15 +54,12 @@ function fetchAndDisplayBoardsAndTasks() {
 // Displays boards in the UI
 function displayBoards(boards) {
   elements.boardsContainer.innerHTML = '';
-
   boards.forEach(board => {
     const boardElement = document.createElement('div');
     boardElement.classList.add('board-item');
-
     const boardButton = document.createElement('button');
     boardButton.textContent = board;
     boardButton.classList.add('board-btn');
-
     boardButton.addEventListener('click', () => {
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
@@ -75,26 +67,21 @@ function displayBoards(boards) {
       localStorage.setItem('activeBoard', JSON.stringify(activeBoard));
       styleActiveBoard(activeBoard);
     });
-
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('delete-board-btn');
-
     deleteButton.addEventListener('click', () => {
       deleteBoard(board);
     });
-
     boardElement.appendChild(boardButton);
     boardElement.appendChild(deleteButton);
     elements.boardsContainer.appendChild(boardElement);
   });
 }
-
 // Filters tasks by board and displays them
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks();
   const columnDivs = document.querySelectorAll('.column-div');
-
   columnDivs.forEach(column => {
     const status = column.getAttribute("data-status");
     column.innerHTML = `<div class="column-head-div">
@@ -104,25 +91,20 @@ function filterAndDisplayTasksByBoard(boardName) {
     const tasksContainer = document.createElement("div");
     tasksContainer.classList.add("tasks-container");
     column.appendChild(tasksContainer);
-
     const filteredTasks = tasks.filter(task => task.board === boardName && task.status === status);
-
     filteredTasks.forEach(task => {
       const taskElement = createTaskElement(task);
       tasksContainer.appendChild(taskElement);
-
       taskElement.addEventListener('click', () => {
         openEditTaskModal(task);
       });
     });
   });
 }
-
 // Refreshes the tasks UI
 function refreshTasksUI() {
   filterAndDisplayTasksByBoard(activeBoard);
 }
-
 // Styles the active board by adding an active class
 function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach(btn => {
@@ -133,33 +115,26 @@ function styleActiveBoard(boardName) {
     }
   });
 }
-
 // Adds a task to the UI
 function addTaskToUI(task) {
   const column = document.querySelector(`.column-div[data-status="${task.status}"]`);
-
   if (!column) {
     console.error(`Column not found for status: ${task.status}`);
     return;
   }
-
   let tasksContainer = column.querySelector('.tasks-container');
-
   if (!tasksContainer) {
     console.warn(`Tasks container not found for status: ${task.status}, creating one.`);
     tasksContainer = document.createElement('div');
     tasksContainer.className = 'tasks-container';
     column.appendChild(tasksContainer);
   }
-
   const taskElement = createTaskElement(task);
   tasksContainer.appendChild(taskElement);
-
   taskElement.addEventListener('click', () => {
     openEditTaskModal(task);
   });
 }
-
 // Sets up event listeners
 function setupEventListeners() {
   elements.cancelEditBtn.addEventListener('click', () => 
@@ -168,37 +143,28 @@ function setupEventListeners() {
     toggleModal(false);
     elements.filterDiv.style.display = 'none';
   });
-
   elements.filterDiv.addEventListener('click', () => {
     toggleModal(false);
     elements.filterDiv.style.display = 'none';
   });
-
   elements.hideSideBarBtn.addEventListener('click', () => toggleSidebar(false));
   elements.showSideBarBtn.addEventListener('click', () => toggleSidebar(true));
-
   elements.themeSwitch.addEventListener('change', toggleTheme);
-
   elements.createNewTaskBtn.addEventListener('click', () => {
     toggleModal(true);
     elements.filterDiv.style.display = 'block';
   });
-
   elements.modalWindow.addEventListener('submit', (event) => {
     addTask(event);
   });
-
   elements.saveTaskChangesBtn.addEventListener('click', saveTaskChanges);
   elements.deleteTaskBtn.addEventListener('click', deleteTask);
-
   elements.addBoardBtn.addEventListener('click', addNewBoard);
 }
-
 // Toggles the modal display
 function toggleModal(show, modal = elements.modalWindow) {
   modal.style.display = show ? 'block' : 'none';
 }
-
 // Adds a new task
 function addTask(event) {
   event.preventDefault();
@@ -221,14 +187,11 @@ function addTask(event) {
     saveTasksToLocalStorage(); // Save tasks to localStorage after adding a new task
   }
 }
-
 // Generates a unique task ID
 function generateTaskId() {
   return '_' + Math.random().toString(36).substr(2, 9);
 }
-
 // Toggles the sidebar display
-
 function toggleSidebar(show) {
   const sideBar = document.getElementById('side-bar-div');
   const showSidebarBtn = document.getElementById('show-side-bar-btn');
@@ -242,12 +205,10 @@ function toggleSidebar(show) {
   } else {
     sideBar.style.display = 'none';
     showSidebarBtn.style.display = 'flex';
-    hideSidebarBtn.style.display = 'none'; // Hide the button to hide the sidebar
+    hideSidebarBtn.style.display = 'none'; 
     localStorage.setItem('showSideBar', 'false');
   }
 }
-
-
 // Toggles the theme
 function toggleTheme() {
   const currentTheme = document.body.classList.contains('light-theme') ? 'light-theme' : 'dark-theme';
@@ -300,8 +261,6 @@ function saveTaskChanges() {
     elements.filterDiv.style.display = 'none';
   }
 }
-
-// Deletes a task
 function deleteTask() {
   const tasks = getTasks();
   const updatedTasks = tasks.filter(task => task.id !== selectedTaskId);
@@ -311,7 +270,7 @@ function deleteTask() {
   elements.filterDiv.style.display = 'none';
 }
 
-// Adds a new board
+// My Custom Feature Adds a new board
 function addNewBoard() {
   const newBoardName = elements.addBoardInput.value.trim();
   if (newBoardName) {
@@ -323,7 +282,6 @@ function addNewBoard() {
   }
 }
 
-// Deletes a board and its associated tasks
 function deleteBoard(boardName) {
   const tasks = getTasks();
   const updatedTasks = tasks.filter(task => task.board !== boardName);
@@ -337,7 +295,6 @@ function deleteBoard(boardName) {
   fetchAndDisplayBoardsAndTasks();
 }
 
-// Initializes the application after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
   initializeData();
   applySavedTheme();
@@ -346,15 +303,12 @@ document.addEventListener('DOMContentLoaded', function() {
   fetchAndDisplayBoardsAndTasks();
 });
 
-// Sample implementation of createNewTask function
 function createNewTask(task) {
   const tasks = getTasks();
   tasks.push(task);
   localStorage.setItem('tasks', JSON.stringify(tasks));
   return task;
 }
-
-// Sample implementation of createTaskElement function
 function createTaskElement(task) {
   const taskElement = document.createElement('div');
   taskElement.classList.add('task');
@@ -364,8 +318,6 @@ function createTaskElement(task) {
   taskTitle.classList.add('task-title');
 
   taskElement.appendChild(taskTitle);
-  // taskElement.appendChild(taskDescription);
-
   return taskElement;
 }
 
