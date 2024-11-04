@@ -14,7 +14,7 @@
 }
 
 .light-theme {
-  --primary-color: #ffffff;
+  --primary-color: #000000;
   --secondary-color: #e6e6e6;
   --primary-font-color: #000000;
   --secondary-font-color: #828fa3;
@@ -199,7 +199,6 @@ h4 {
 }
 
 #side-logo-div {
-  filter: brightness(0) invert(1);
   margin-top: 40px;
   display: flex;
   justify-content: flex-start;
