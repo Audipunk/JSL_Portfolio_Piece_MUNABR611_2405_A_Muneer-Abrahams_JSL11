@@ -36,7 +36,6 @@ let selectedTaskId = '';
 function getTasks() {
   return JSON.parse(localStorage.getItem('tasks')) || [];
 }
-
 // 4
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
@@ -50,7 +49,6 @@ function fetchAndDisplayBoardsAndTasks() {
     refreshTasksUI();
   }
 }
-
 // 5
 function displayBoards(boards) {
   elements.boardsContainer.innerHTML = '';
@@ -168,7 +166,6 @@ function toggleModal(show, modal = elements.modalWindow) {
 // 12
 function addTask(event) {
   event.preventDefault();
-
   const task = {
     title: elements.modalTitleInput.value.trim(),
     description: elements.modalDescInput.value.trim(),
@@ -176,7 +173,6 @@ function addTask(event) {
     id: generateTaskId(),
     board: activeBoard
   };
-
   const newTask = createNewTask(task);
   if (newTask) {
     addTaskToUI(newTask);
@@ -196,7 +192,6 @@ function toggleSidebar(show) {
   const sideBar = document.getElementById('side-bar-div');
   const showSidebarBtn = document.getElementById('show-side-bar-btn');
   const hideSidebarBtn = document.getElementById('hide-side-bar-btn');
-
   if (show) {
     sideBar.style.display = 'block';
     showSidebarBtn.style.display = 'none';
@@ -219,7 +214,6 @@ function toggleTheme() {
 
   localStorage.setItem('theme', newTheme);
 }
-
 // 16
 function applySavedTheme() {
   const savedTheme = localStorage.getItem('theme');
@@ -230,13 +224,11 @@ function applySavedTheme() {
     document.body.classList.add('light-theme');
   }
 }
-
 // 17
 function initializeSidebar() {
   const showSideBar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSideBar);
 }
-
 // 18
 function openEditTaskModal(task) {
   selectedTaskId = task.id;
@@ -246,7 +238,6 @@ function openEditTaskModal(task) {
   toggleModal(true, elements.editTaskModal);
   elements.filterDiv.style.display = 'block';
 }
-
 // 19
 function saveTaskChanges() {
   const tasks = getTasks();
@@ -269,7 +260,6 @@ function deleteTask() {
   toggleModal(false, elements.editTaskModal);
   elements.filterDiv.style.display = 'none';
 }
-
 // 20
 function addNewBoard() {
   const newBoardName = elements.addBoardInput.value.trim();
@@ -281,7 +271,6 @@ function addNewBoard() {
     elements.addBoardInput.value = '';
   }
 }
-
 function deleteBoard(boardName) {
   const tasks = getTasks();
   const updatedTasks = tasks.filter(task => task.board !== boardName);
@@ -294,7 +283,6 @@ function deleteBoard(boardName) {
 
   fetchAndDisplayBoardsAndTasks();
 }
-
 document.addEventListener('DOMContentLoaded', function() {
   initializeData();
   applySavedTheme();
@@ -302,7 +290,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeSidebar();
   fetchAndDisplayBoardsAndTasks();
 });
-
 function createNewTask(task) {
   const tasks = getTasks();
   tasks.push(task);
@@ -312,7 +299,6 @@ function createNewTask(task) {
 function createTaskElement(task) {
   const taskElement = document.createElement('div');
   taskElement.classList.add('task');
-
   const taskTitle = document.createElement('h4');
   taskTitle.textContent = task.title;
   taskTitle.classList.add('task-title');
@@ -320,7 +306,6 @@ function createTaskElement(task) {
   taskElement.appendChild(taskTitle);
   return taskElement;
 }
-
 // Save tasks to localStorage
 function saveTasksToLocalStorage() {
   const tasks = getTasks();
