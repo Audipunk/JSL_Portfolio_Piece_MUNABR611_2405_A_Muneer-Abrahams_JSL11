@@ -1,12 +1,12 @@
 function initializeData() {
   if (!localStorage.getItem('tasks')) {
     localStorage.setItem('tasks', JSON.stringify(initialData));
-    localStorage.setItem('showSideBar', 'false'); // Set default sidebar visibility to hidden
+    localStorage.setItem('showSideBar', 'false'); // 1
   } else {
     console.log('Data already exists in localStorage');
   }
 }
-// DOM elements
+// 2
 const elements = {
   headerBoardName: document.getElementById('header-board-name'),
   modalWindow: document.getElementById('new-task-modal-window'),
@@ -32,26 +32,26 @@ const elements = {
 };
 let activeBoard = '';
 let selectedTaskId = '';
-// Fetches tasks from localStorage or an initial data source
+// 3
 function getTasks() {
   return JSON.parse(localStorage.getItem('tasks')) || [];
 }
 
-// Fetches unique board names from tasks
+// 4
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem('activeBoard'));
-    activeBoard = localStorageBoard || boards[0]; // Set activeBoard to the first board by default
+    activeBoard = localStorageBoard || boards[0];        //4.1
     elements.headerBoardName.textContent = activeBoard;
     styleActiveBoard(activeBoard);
     refreshTasksUI();
   }
 }
 
-// Displays boards in the UI
+// 5
 function displayBoards(boards) {
   elements.boardsContainer.innerHTML = '';
   boards.forEach(board => {
@@ -67,7 +67,7 @@ function displayBoards(boards) {
       localStorage.setItem('activeBoard', JSON.stringify(activeBoard));
       styleActiveBoard(activeBoard);
     });
-    const deleteButton = document.createElement('button');
+    const deleteButton = document.createElement('button');                //5.1
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('delete-board-btn');
     deleteButton.addEventListener('click', () => {
@@ -78,7 +78,7 @@ function displayBoards(boards) {
     elements.boardsContainer.appendChild(boardElement);
   });
 }
-// Filters tasks by board and displays them
+// 6
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks();
   const columnDivs = document.querySelectorAll('.column-div');
@@ -101,11 +101,11 @@ function filterAndDisplayTasksByBoard(boardName) {
     });
   });
 }
-// Refreshes the tasks UI
+// 7
 function refreshTasksUI() {
   filterAndDisplayTasksByBoard(activeBoard);
 }
-// Styles the active board by adding an active class
+// 8
 function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach(btn => {
     if (btn.textContent === boardName) {
@@ -115,7 +115,7 @@ function styleActiveBoard(boardName) {
     }
   });
 }
-// Adds a task to the UI
+// 9
 function addTaskToUI(task) {
   const column = document.querySelector(`.column-div[data-status="${task.status}"]`);
   if (!column) {
@@ -135,7 +135,7 @@ function addTaskToUI(task) {
     openEditTaskModal(task);
   });
 }
-// Sets up event listeners
+// 10
 function setupEventListeners() {
   elements.cancelEditBtn.addEventListener('click', () => 
     {toggleModal(false, elements.editTaskModal);elements.filterDiv.style.display = 'none'});
@@ -161,11 +161,11 @@ function setupEventListeners() {
   elements.deleteTaskBtn.addEventListener('click', deleteTask);
   elements.addBoardBtn.addEventListener('click', addNewBoard);
 }
-// Toggles the modal display
+// 11
 function toggleModal(show, modal = elements.modalWindow) {
   modal.style.display = show ? 'block' : 'none';
 }
-// Adds a new task
+// 12
 function addTask(event) {
   event.preventDefault();
 
@@ -184,14 +184,14 @@ function addTask(event) {
     elements.filterDiv.style.display = 'none';
     event.target.reset();
     refreshTasksUI();
-    saveTasksToLocalStorage(); // Save tasks to localStorage after adding a new task
+    saveTasksToLocalStorage(); // 12.1
   }
 }
-// Generates a unique task ID
+// 13
 function generateTaskId() {
   return '_' + Math.random().toString(36).substr(2, 9);
 }
-// Toggles the sidebar display
+// 14
 function toggleSidebar(show) {
   const sideBar = document.getElementById('side-bar-div');
   const showSidebarBtn = document.getElementById('show-side-bar-btn');
@@ -200,7 +200,7 @@ function toggleSidebar(show) {
   if (show) {
     sideBar.style.display = 'block';
     showSidebarBtn.style.display = 'none';
-    hideSidebarBtn.style.display = 'flex'; // Show the button to hide the sidebar
+    hideSidebarBtn.style.display = 'flex'; // 14.1
     localStorage.setItem('showSideBar', 'true');
   } else {
     sideBar.style.display = 'none';
@@ -209,7 +209,7 @@ function toggleSidebar(show) {
     localStorage.setItem('showSideBar', 'false');
   }
 }
-// Toggles the theme
+// 15
 function toggleTheme() {
   const currentTheme = document.body.classList.contains('light-theme') ? 'light-theme' : 'dark-theme';
   const newTheme = currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme';
@@ -220,7 +220,7 @@ function toggleTheme() {
   localStorage.setItem('theme', newTheme);
 }
 
-// Applies the saved theme on page load
+// 16
 function applySavedTheme() {
   const savedTheme = localStorage.getItem('theme');
 
@@ -231,13 +231,13 @@ function applySavedTheme() {
   }
 }
 
-// Initializes the sidebar visibility based on localStorage
+// 17
 function initializeSidebar() {
   const showSideBar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSideBar);
 }
 
-// Opens the edit task modal and fills it with the selected task data
+// 18
 function openEditTaskModal(task) {
   selectedTaskId = task.id;
   elements.editTaskTitleInput.value = task.title;
@@ -247,7 +247,7 @@ function openEditTaskModal(task) {
   elements.filterDiv.style.display = 'block';
 }
 
-// Saves the changes made to a task
+// 19
 function saveTaskChanges() {
   const tasks = getTasks();
   const taskIndex = tasks.findIndex(task => task.id === selectedTaskId);
@@ -270,7 +270,7 @@ function deleteTask() {
   elements.filterDiv.style.display = 'none';
 }
 
-// My Custom Feature Adds a new board
+// 20
 function addNewBoard() {
   const newBoardName = elements.addBoardInput.value.trim();
   if (newBoardName) {
