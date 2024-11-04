@@ -14,7 +14,7 @@
 }
 
 .light-theme {
-  --primary-color: #000000;
+  --primary-color: #ffffff;
   --secondary-color: #e6e6e6;
   --primary-font-color: #000000;
   --secondary-font-color: #828fa3;
@@ -206,6 +206,7 @@ h4 {
 }
 
 #logo {
+
   width: 90%;
 }
 
